@@ -1,0 +1,15 @@
+services:
+  nginx:
+    image: nginx:stable-alpine3.20-perl
+    container_name: ${WEBSITE_DOMAIN}_container
+    volumes:
+      - ./website:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template:ro
+    restart: unless-stopped
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
